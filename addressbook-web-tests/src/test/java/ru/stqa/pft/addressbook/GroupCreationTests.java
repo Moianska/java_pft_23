@@ -68,15 +68,6 @@ public class GroupCreationTests {
     wd.quit();
   }
 
-  private boolean isAlertPresent() {
-    try {
-      wd.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
-
   private void logout() {
     wd.findElement(By.linkText("Logout")).click();
   }
