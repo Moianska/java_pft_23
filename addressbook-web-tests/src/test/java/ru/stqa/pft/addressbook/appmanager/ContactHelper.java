@@ -31,11 +31,22 @@ public class ContactHelper extends HelperBase {
     }
 
     public void initContactEditing() {
-        click(By.id("2"));
         click(By.xpath("//img[@alt='Edit']"));
     }
 
     public void updateEditedContact() {
         click(By.name("update"));
+    }
+
+    public void selectContact() {
+        click(By.name("selected[]"));
+    }
+
+    public void acceptWarningOk() {
+        wd.switchTo().alert().accept();
+    }
+
+    public void deleteSelectedContact() {
+        click(By.xpath("//input[@value='Delete']"));
     }
 }
