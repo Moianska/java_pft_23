@@ -7,11 +7,15 @@ public class ContactCreationTests extends TestBase {
 
   @Test
   public void testContactCreation() {
-    app.getContactHelper().initContactCreation();
-    app.getContactHelper().fillNewContactForm(new ContactData("Terry", "Pratchet", "+33111222333",
-            "terry.p@google.com", "USA, Montana", "test1"), true);
-    app.getContactHelper().submitNewContactForm();
-    app.getNavigationHelper().backToHomePage();
+
+    String groupName = app.getGroupHelper().defineGroupName();
+    app.getNavigationHelper().backHome();
+
+    if (! app.getContactHelper().isThereAContact()){
+      app.getContactHelper().createContact(new ContactData("Mia", "Jordan", "+33111222333",
+              "terry.p@google.com", "USA, Montana", groupName));
+    }
+
     app.getSessionHelper().logout();
   }
 }

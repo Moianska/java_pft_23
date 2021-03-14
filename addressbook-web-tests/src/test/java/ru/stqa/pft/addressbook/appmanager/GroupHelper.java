@@ -54,4 +54,13 @@ public class GroupHelper extends HelperBase {
     public boolean isThereAGroup() {
         return isElementPresent(By.name("selected[]"));
     }
+
+    public String defineGroupName() {
+        click(By.linkText("groups"));
+        if (! isThereAGroup()) {
+            return "[none]";
+        } else {
+             return "test1";
+        }
+    }
 }
