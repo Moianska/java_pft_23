@@ -27,10 +27,7 @@ public class NavigationHelper extends HelperBase{
     }
 
     public void backHome() {
-        if (isElementPresent(By.id("maintable"))) {
-            return;
-        } else {
-            click(By.linkText("home"));
-        }
+                    click(By.linkText("home"));
+
     }
 }
