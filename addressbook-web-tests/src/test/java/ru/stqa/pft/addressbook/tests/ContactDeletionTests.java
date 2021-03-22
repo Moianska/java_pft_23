@@ -1,14 +1,10 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.appmanager.HelperBase;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ContactDeletionTests extends TestBase{
 
@@ -28,7 +24,8 @@ public class ContactDeletionTests extends TestBase{
         app.getContactHelper().deleteSelectedContact();
         app.getContactHelper().acceptWarningOk();
         app.getNavigationHelper().backHome();
-        app.getContactHelper().tumeOut(1);
+       /* app.getContactHelper().timeOut(1); таймаут добавлен в связи с тем, что иначе getContactList() успевает
+                                                получить неправильные данные из таблицы контактов */
 
         List<ContactData> after = app.getContactHelper().getContactList();
 

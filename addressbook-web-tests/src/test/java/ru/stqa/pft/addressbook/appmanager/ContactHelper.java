@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +52,7 @@ public class ContactHelper extends HelperBase {
 
     public void acceptWarningOk() {
         wd.switchTo().alert().accept();
+        wd.findElement(By.cssSelector("div.msgbox"));
     }
 
     public void deleteSelectedContact() {
@@ -79,7 +79,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public List<ContactData> getContactList() {
-        List<ContactData> contacts = new ArrayList<ContactData>();
+        List<ContactData> contacts = new ArrayList<>();
         List<WebElement> elements = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr"));
         elements.remove(0);
 
@@ -90,13 +90,13 @@ public class ContactHelper extends HelperBase {
             String last_name = cells.get(1).getText();
 
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
-            ContactData contact = new ContactData(first_name, last_name, null, null, null, null);
+            ContactData contact = new ContactData(id, first_name, last_name, null, null, null, null);
             contacts.add(contact);
         }
         return contacts;
     }
 
-    public void tumeOut(int i) {
+    public void timeOut(int i) {
         wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
     }
 }
