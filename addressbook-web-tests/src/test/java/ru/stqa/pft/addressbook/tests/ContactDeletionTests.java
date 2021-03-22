@@ -24,7 +24,7 @@ public class ContactDeletionTests extends TestBase{
         app.getContactHelper().deleteSelectedContact();
         app.getContactHelper().acceptWarningOk();
         app.getNavigationHelper().backHome();
-       /* app.getContactHelper().timeOut(1); таймаут добавлен в связи с тем, что иначе getContactList() успевает
+        app.getContactHelper().timeOut(1); /*таймаут добавлен в связи с тем, что иначе getContactList() успевает
                                                 получить неправильные данные из таблицы контактов */
 
         List<ContactData> after = app.getContactHelper().getContactList();

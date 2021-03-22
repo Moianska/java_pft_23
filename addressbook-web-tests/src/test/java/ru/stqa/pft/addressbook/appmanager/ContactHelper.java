@@ -38,8 +38,8 @@ public class ContactHelper extends HelperBase {
         click(By.name("submit"));
     }
 
-    public void initContactEditing() {
-        click(By.xpath("//img[@alt='Edit']"));
+    public void initContactEditing(int index) {
+        wd.findElement(By.xpath("//tr["+index+"]/td[8]/a/img")).click();
     }
 
     public void updateEditedContact() {
