@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,10 @@ public class ContactHelper extends HelperBase {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
+    public void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
+    }
+
     public void acceptWarningOk() {
         wd.switchTo().alert().accept();
         /*wd.findElement(By.cssSelector("div.msgbox"));*/
@@ -71,8 +76,8 @@ public class ContactHelper extends HelperBase {
         backToHomePage();
     }
 
-    public void delete(List<ContactData> before) {
-        selectContact(before.size() - 1);
+    public void delete(ContactData contact) {
+        selectContactById(contact.getId());
         deleteSelectedContact();
         timeOut(1);
         acceptWarningOk();
@@ -110,14 +115,14 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
-    /*public Groups all() {
-        Groups groups;
-        groups = new Groups();
+    public Contacts all() {
+        Contacts contacts;
+        contacts = new Contacts();
 
         List<WebElement> elements = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr"));
         elements.remove(0);
 
-        for (WebElement element: elements) {
+        for (WebElement element : elements) {
             List<WebElement> cells = element.findElements(By.tagName("td"));
 
             String first_name = cells.get(2).getText();
@@ -128,15 +133,7 @@ public class ContactHelper extends HelperBase {
             contacts.add(contact);
         }
         return contacts;
-
-        List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
-        for (WebElement element: elements) {
-            String name = element.getText();
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            groups.add(new GroupData().withName(name).withId(id));
-        }
-        return groups; }*/
-
+    }
 
     public void timeOut(int i) {
         wd.manage().timeouts().implicitlyWait(i, TimeUnit.SECONDS);
