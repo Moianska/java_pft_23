@@ -11,8 +11,8 @@ public class ContactModificationTests extends TestBase {
     @Test (enabled = false)
     public void testContactModification() {
 
-        String groupName = app.getGroupHelper().defineGroupName();
-        app.getNavigationHelper().backHome();
+        String groupName = app.group().defineGroupName();
+        app.goTo().backHome();
 
         if (! app.getContactHelper().isThereAContact()){
             app.getContactHelper().createContact(new ContactData("Mike", "Jordan", "+33111222333",
@@ -27,7 +27,7 @@ public class ContactModificationTests extends TestBase {
                 "terry.p@google.com", "USA, Montana", null);
         app.getContactHelper().fillNewContactForm(contact, false);
         app.getContactHelper().updateEditedContact();
-        app.getNavigationHelper().backToHomePage();
+        app.goTo().backToHomePage();
         app.getContactHelper().timeOut(1);
         List<ContactData> after = app.getContactHelper().getContactList();
         before.remove(before.size() - 1);

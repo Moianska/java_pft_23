@@ -12,14 +12,14 @@ public class ContactCreationTests extends TestBase {
   @Test (enabled = false)
   public void testContactCreation() {
 
-    String groupName = app.getGroupHelper().defineGroupName();
-    app.getNavigationHelper().backHome();
+    String groupName = app.group().defineGroupName();
+    app.goTo().backHome();
 
     List<ContactData> before = app.getContactHelper().getContactList();
     ContactData contact = new ContactData("Mia", "Jordan", "+33111222333",
             "terry.p@google.com", "USA, Montana", groupName);
     app.getContactHelper().createContact(contact);
-    app.getNavigationHelper().backHome();
+    app.goTo().backHome();
     app.getContactHelper().timeOut(1);
     List<ContactData> after = app.getContactHelper().getContactList();
 
