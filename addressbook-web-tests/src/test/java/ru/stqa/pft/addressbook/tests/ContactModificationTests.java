@@ -14,22 +14,23 @@ public class ContactModificationTests extends TestBase {
         String groupName = app.group().defineGroupName();
         app.goTo().backHome();
 
-        if (! app.getContactHelper().isThereAContact()){
-            app.getContactHelper().createContact(new ContactData("Mike", "Jordan", "+33111222333",
-                    "terry.p@google.com", "USA, Montana", groupName));
+        if (! app.contact().isThereAContact()){
+            app.contact().createContact(new ContactData().withName ("Mike").withLastName("Jordan")
+                    .withMobilePhone("+33111222333").withEmail("terry.p@google.com").withAddress("USA, Montana")
+                    .withGroup(groupName));
         }
 
-        List<ContactData> before = app.getContactHelper().getContactList();
+        List<ContactData> before = app.contact().getContactList();
 
-        app.getContactHelper().selectContact(before.size() - 1);
-        app.getContactHelper().initContactEditing(before.size()+1);
-        ContactData contact = new ContactData(before.get(before.size() - 1).getId(),"Price", "One", "+33111222333",
-                "terry.p@google.com", "USA, Montana", null);
-        app.getContactHelper().fillNewContactForm(contact, false);
-        app.getContactHelper().updateEditedContact();
+        app.contact().selectContact(before.size() - 1);
+        app.contact().initContactEditing(before.size()+1);
+        ContactData contact = new ContactData().withId(before.get(before.size() - 1).getId()).withName ("Price").withLastName("One")
+                .withMobilePhone("+33111222333").withEmail("terry.p@google.com").withAddress("USA, Montana");
+        app.contact().fillNewContactForm(contact, false);
+        app.contact().updateEditedContact();
         app.goTo().backToHomePage();
-        app.getContactHelper().timeOut(1);
-        List<ContactData> after = app.getContactHelper().getContactList();
+        app.contact().timeOut(1);
+        List<ContactData> after = app.contact().getContactList();
         before.remove(before.size() - 1);
         before.add(contact);
 

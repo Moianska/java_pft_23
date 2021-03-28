@@ -15,13 +15,14 @@ public class ContactCreationTests extends TestBase {
     String groupName = app.group().defineGroupName();
     app.goTo().backHome();
 
-    List<ContactData> before = app.getContactHelper().getContactList();
-    ContactData contact = new ContactData("Mia", "Jordan", "+33111222333",
-            "terry.p@google.com", "USA, Montana", groupName);
-    app.getContactHelper().createContact(contact);
+    List<ContactData> before = app.contact().getContactList();
+    ContactData contact = new ContactData().withName ("Mike").withLastName("Jordan")
+            .withMobilePhone("+33111222333").withEmail("terry.p@google.com").withAddress("USA, Montana")
+            .withGroup(groupName);
+    app.contact().createContact(contact);
     app.goTo().backHome();
-    app.getContactHelper().timeOut(1);
-    List<ContactData> after = app.getContactHelper().getContactList();
+    app.contact().timeOut(1);
+    List<ContactData> after = app.contact().getContactList();
 
     Assert.assertEquals(after.size(), before.size() + 1);
     before.add(contact);

@@ -52,7 +52,12 @@ public class ContactHelper extends HelperBase {
 
     public void acceptWarningOk() {
         wd.switchTo().alert().accept();
-        wd.findElement(By.cssSelector("div.msgbox"));
+        /*wd.findElement(By.cssSelector("div.msgbox"));*/
+    }
+
+    public void backHome() {
+        click(By.linkText("home"));
+
     }
 
     public void deleteSelectedContact() {
@@ -64,6 +69,15 @@ public class ContactHelper extends HelperBase {
         fillNewContactForm(contact, true);
         submitNewContactForm();
         backToHomePage();
+    }
+
+    public void delete(List<ContactData> before) {
+        selectContact(before.size() - 1);
+        deleteSelectedContact();
+        timeOut(1);
+        acceptWarningOk();
+        backHome();
+        timeOut(3);
     }
 
     private void backToHomePage() {
@@ -90,13 +104,41 @@ public class ContactHelper extends HelperBase {
             String last_name = cells.get(1).getText();
 
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
-            ContactData contact = new ContactData(id, first_name, last_name, null, null, null, null);
+            ContactData contact = new ContactData().withId(id).withName(first_name).withLastName(last_name);
             contacts.add(contact);
         }
         return contacts;
     }
 
+    /*public Groups all() {
+        Groups groups;
+        groups = new Groups();
+
+        List<WebElement> elements = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr"));
+        elements.remove(0);
+
+        for (WebElement element: elements) {
+            List<WebElement> cells = element.findElements(By.tagName("td"));
+
+            String first_name = cells.get(2).getText();
+            String last_name = cells.get(1).getText();
+
+            int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+            ContactData contact = new ContactData().withId(id).withName(first_name).withLastName(last_name);
+            contacts.add(contact);
+        }
+        return contacts;
+
+        List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+        for (WebElement element: elements) {
+            String name = element.getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            groups.add(new GroupData().withName(name).withId(id));
+        }
+        return groups; }*/
+
+
     public void timeOut(int i) {
-        wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(i, TimeUnit.SECONDS);
     }
 }

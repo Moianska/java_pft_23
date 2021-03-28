@@ -81,7 +81,8 @@ public class GroupHelper extends HelperBase {
         if (! isThereAGroup()) {
             return "[none]";
         } else {
-             return "test1";
+             String groupName = wd.findElement(By.cssSelector("span.group")).getText();
+             return groupName;
         }
     }
 

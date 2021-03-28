@@ -8,32 +8,26 @@ import java.util.List;
 
 public class ContactDeletionTests extends TestBase{
 
-    @Test (enabled = false)
+    @Test
     public void testContactDeletion() {
 
         String groupName = app.group().defineGroupName();
         app.goTo().backHome();
 
-        if (! app.getContactHelper().isThereAContact()){
-            app.getContactHelper().createContact(new ContactData("Mike", "Jordan", "+33111222333",
-                    "terry.p@google.com", "USA, Montana", groupName));
+        if (! app.contact().isThereAContact()){
+            app.contact().createContact(new ContactData().withName ("Mike").withLastName("Jordan")
+                    .withMobilePhone("+33111222333").withEmail("terry.p@google.com").withAddress("USA, Montana")
+                    .withGroup(groupName));
         }
 
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().selectContact(before.size() - 1);
-        app.getContactHelper().deleteSelectedContact();
-        app.getContactHelper().acceptWarningOk();
-        app.goTo().backHome();
-        app.getContactHelper().timeOut(1); /*таймаут добавлен в связи с тем, что иначе getContactList() успевает
-                                                получить неправильные данные из таблицы контактов */
-
-        List<ContactData> after = app.getContactHelper().getContactList();
+        List<ContactData> before = app.contact().getContactList();
+        app.contact().delete(before);
+        List<ContactData> after = app.contact().getContactList();
 
         Assert.assertEquals(after.size(), before.size() - 1);
 
         before.remove(before.size() - 1);
         Assert.assertEquals(before, after);
-
-        app.getSessionHelper().logout();
     }
+
 }
