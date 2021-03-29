@@ -149,4 +149,18 @@ public class ContactHelper extends HelperBase {
     public void timeOut(int i) {
         wd.manage().timeouts().implicitlyWait(i, TimeUnit.SECONDS);
     }
+
+    public ContactData infoFromEditForm(ContactData contact) {
+        selectContactById(contact.getId());
+        initContactEditing(contact.getId());
+        String firstname = wd.findElement(By.name("firstName")).getAttribute("value");
+        String lastName = wd.findElement(By.name("lastName")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        backToHomePage();
+        return new ContactData().withId(contact.getId()).withName(firstname).withLastName(lastName)
+                .withMobilePhone(mobile).withHomePhone(home).withWorkPhone(work);
+
+    }
 }
