@@ -71,6 +71,14 @@ public class ContactData {
         return mobilePhone;
     }
 
+    public String getHomePhone() {
+        return homePhone;
+    }
+
+    public String getWorkPhone() {
+        return workPhone;
+    }
+
     public String getEmail() {
         return email;
     }
