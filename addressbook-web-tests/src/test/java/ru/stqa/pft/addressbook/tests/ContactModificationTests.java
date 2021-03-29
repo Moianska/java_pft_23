@@ -15,7 +15,7 @@ public class ContactModificationTests extends TestBase {
         app.goTo().backHome();
 
         if (! app.contact().isThereAContact()){
-            app.contact().createContact(new ContactData().withName ("Mike").withLastName("Jordan")
+            app.contact().create(new ContactData().withName ("Mike").withLastName("Jordan")
                     .withMobilePhone("+33111222333").withEmail("terry.p@google.com").withAddress("USA, Montana")
                     .withGroup(groupName));
         }

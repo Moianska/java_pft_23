@@ -69,7 +69,7 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//input[@value='Delete']"));
     }
 
-    public void createContact(ContactData contact) {
+    public void create(ContactData contact) {
        initContactCreation();
         fillNewContactForm(contact, true);
         submitNewContactForm();
