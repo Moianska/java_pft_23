@@ -26,7 +26,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("lastname"), contactData.getLastName());
         type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("email"), contactData.getEmail());
-        type(By.name("address"), contactData.getAddress());
+        type(By.name("address"), contactData.getHomeAddress());
 
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
@@ -136,14 +136,16 @@ public class ContactHelper extends HelperBase {
         for (WebElement element : elements) {
             List<WebElement> cells = element.findElements(By.tagName("td"));
 
-            String first_name = cells.get(2).getText();
             String last_name = cells.get(1).getText();
-            String allPhones = cells.get(5).getText();
+            String first_name = cells.get(2).getText();
+            String homeAddress = cells.get(3).getText();
             String allEmails = cells.get(4).getText();
+            String allPhones = cells.get(5).getText();
+
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
 
             ContactData contact = new ContactData().withId(id).withName(first_name).withLastName(last_name)
-                    .withAllPhones(allPhones).withAllEmails(allEmails);
+                    .withAllPhones(allPhones).withAllEmails(allEmails).withHomeAddress(homeAddress);
             contacts.add(contact);
         }
         return contacts;
@@ -158,6 +160,7 @@ public class ContactHelper extends HelperBase {
         initContactEditing(contact.getId());
         String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
         String lastName = wd.findElement(By.name("lastname")).getAttribute("value");
+        String homeAddress = wd.findElement(By.name("address")).getText();
         String home = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
@@ -167,7 +170,7 @@ public class ContactHelper extends HelperBase {
         backHome();
         return new ContactData().withId(contact.getId()).withName(firstname).withLastName(lastName)
                 .withMobilePhone(mobile).withHomePhone(home).withWorkPhone(work)
-                .withEmail(email).withEmail2(email2).withEmail3(email3);
+                .withEmail(email).withEmail2(email2).withEmail3(email3).withHomeAddress(homeAddress);
 
     }
 }

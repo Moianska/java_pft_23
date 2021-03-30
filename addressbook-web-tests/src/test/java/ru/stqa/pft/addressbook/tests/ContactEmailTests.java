@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class EmailTests extends TestBase{
+public class ContactEmailTests extends TestBase{
 
     @Test
     public void testEmail() {
@@ -18,7 +18,7 @@ public class EmailTests extends TestBase{
             String groupName = app.group().defineGroupName();
             app.goTo().backHome();
             app.contact().create(new ContactData().withName ("Mike").withLastName("Jordan")
-                    .withMobilePhone("+33111222333").withEmail("terry.p@google.com").withAddress("USA, Montana")
+                    .withMobilePhone("+33111222333").withEmail("terry.p@google.com").withHomeAddress("USA, Montana")
                     .withGroup(groupName).withWorkPhone("121 5545").withHomePhone("444 5555"));
         }
 
