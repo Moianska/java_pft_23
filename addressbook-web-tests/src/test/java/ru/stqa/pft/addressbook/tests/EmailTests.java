@@ -6,18 +6,17 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ContactPhoneTests extends TestBase{
+public class EmailTests extends TestBase{
 
     @Test
-    public void testContactPhones() {
-
-        String groupName = app.group().defineGroupName();
-        app.goTo().backHome();
+    public void testEmail() {
 
         if (app.contact().all().size() == 0){
+            String groupName = app.group().defineGroupName();
+            app.goTo().backHome();
             app.contact().create(new ContactData().withName ("Mike").withLastName("Jordan")
                     .withMobilePhone("+33111222333").withEmail("terry.p@google.com").withAddress("USA, Montana")
                     .withGroup(groupName).withWorkPhone("121 5545").withHomePhone("444 5555"));
@@ -25,19 +24,13 @@ public class ContactPhoneTests extends TestBase{
 
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
-        assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
+
+        assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
     }
 
-    private String mergePhones(ContactData contact) {
-        return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
+    private String mergeEmails(ContactData contact) {
+        return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
                 .stream().filter((s -> !s.equals("")))
-                .map(ContactPhoneTests::cleaned)
                 .collect(Collectors.joining("\n"));
     }
-
-
-    public static String cleaned(String phone) {
-        return phone.replaceAll("\\s","").replaceAll("[-()]","");
-    }
-
 }
