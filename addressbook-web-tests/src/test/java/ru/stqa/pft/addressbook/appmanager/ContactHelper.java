@@ -52,9 +52,8 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
     }
 
-    public void initContactEditing(int index) {
-        int id = index +1;
-        wd.findElement(By.xpath("//tr["+id+"]/td[8]/a/img")).click();
+    public void initContactEditing(int id) {
+        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']",id))).click();
     }
 
     public void acceptWarningOk() {
