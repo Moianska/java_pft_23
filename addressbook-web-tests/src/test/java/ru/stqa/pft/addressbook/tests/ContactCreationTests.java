@@ -19,7 +19,7 @@ public class ContactCreationTests extends TestBase {
     app.goTo().backHome();
 
     Contacts before = app.contact().all();
-    File photo = new File("src/test/resources/pict.png");
+    File photo = new File("src/test/resources/stru.png");
     ContactData contact = new ContactData().withName ("Luke").withLastName("Skywalker")
             .withMobilePhone("+33111222333").withEmail("terry.p@google.com").withHomeAddress("USA, Montana")
             .withPhoto(photo).withGroup(groupName);
