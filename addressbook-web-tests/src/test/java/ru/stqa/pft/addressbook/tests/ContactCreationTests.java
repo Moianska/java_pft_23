@@ -1,28 +1,44 @@
 package ru.stqa.pft.addressbook.tests;
 
+import com.thoughtworks.xstream.XStream;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTests extends TestBase {
 
-  @Test
-  public void testContactCreation() {
+  @DataProvider
+  public Iterator<Object[]> validContactsFromXML() throws IOException {
+    BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/contacts.xml"));
+    String xml = "";
+    String line = reader.readLine();
+    while (line != null) {
+      xml += line;
+      line = reader.readLine();
+    }
+    XStream xstream = new XStream();
+    xstream.processAnnotations(ContactData.class);
+    List<ContactData> contacts = (List<ContactData>) xstream.fromXML(xml);
+    return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+  }
 
-    String groupName = app.group().defineGroupName();
+  @Test (dataProvider = "validContactsFromXML")
+  public void testContactCreation(ContactData contact) {
+
     app.goTo().backHome();
 
     Contacts before = app.contact().all();
-    File photo = new File("src/test/resources/stru.png");
-    ContactData contact = new ContactData().withName ("Luke").withLastName("Skywalker")
-            .withMobilePhone("+33111222333").withEmail("terry.p@google.com").withHomeAddress("USA, Montana")
-            .withPhoto(photo).withGroup(groupName);
     app.contact().create(contact);
     app.goTo().backHome();
     app.contact().timeOut(1);

@@ -75,6 +75,7 @@ public class ContactHelper extends HelperBase {
         fillNewContactForm(contact, true);
         submitNewContactForm();
         backToHomePage();
+        timeOut(2);
     }
 
     public void delete(ContactData contact) {

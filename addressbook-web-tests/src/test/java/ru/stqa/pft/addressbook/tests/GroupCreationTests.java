@@ -9,7 +9,6 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +21,7 @@ public class GroupCreationTests extends TestBase {
   @DataProvider
   public Iterator<Object[]> validGroupsFromXML() throws IOException {
     /*List<Object[]> list = new ArrayList<Object[]>();*/
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")));
+    BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.xml"));
     String xml = "";
     String line = reader.readLine();
     while (line != null) {
@@ -40,7 +39,7 @@ public class GroupCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validGroupsFromJson() throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.json")));
+    BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.json"));
     String json = "";
     String line = reader.readLine();
     while (line != null) {
