@@ -12,7 +12,7 @@ dependencies {
     implementation 'com.thoughtworks.xstream:xstream:1.4.16'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'mysql:mysql-connector-java:8.0.23'
-    implementation 'org.hibernate:hibernate-core:6.0.0.Alpha7'
+    implementation 'org.hibernate:hibernate-core:5.4.30.Final'
 }
 
 task testGroups(type: Test) {

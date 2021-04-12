@@ -9,8 +9,15 @@ import java.io.IOException;
 
 public class TestBase {
 
-    protected static final ApplicationManager app =
-            new ApplicationManager(System.getProperty("browser", BrowserType.FIREFOX));
+    protected static ApplicationManager app;
+
+    static {
+        try {
+            app = new ApplicationManager(System.getProperty("browser", BrowserType.FIREFOX));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @BeforeSuite(alwaysRun = true)
     public void setUp() throws IOException {
