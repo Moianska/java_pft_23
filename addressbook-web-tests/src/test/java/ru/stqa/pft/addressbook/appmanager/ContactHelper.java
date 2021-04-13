@@ -27,9 +27,10 @@ public class ContactHelper extends HelperBase {
         type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("email"), contactData.getEmail());
         type(By.name("address"), contactData.getHomeAddress());
-        attach(By.name("photo"), contactData.getPhoto());
+
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            attach(By.name("photo"), contactData.getPhoto());
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
