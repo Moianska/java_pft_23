@@ -34,13 +34,17 @@ public class ContactData {
     private String allPhones;
     @Transient
     private String allEmails;
-    @Transient
+    @Column(name = "email")
+    @Type(type = "text")
     private String email;
-    @Transient
+    @Column(name = "email2")
+    @Type(type = "text")
     private String email2;
-    @Transient
+    @Column(name = "email3")
+    @Type(type = "text")
     private String email3;
-    @Transient
+    @Column(name = "address")
+    @Type(type = "text")
     private String homeAddress;
     @Transient
     private String group;
@@ -169,12 +173,13 @@ public class ContactData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName);
+        return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName)
+                && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, firstName, lastName, mobilePhone, email);
     }
 
     @Override
