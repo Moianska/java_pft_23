@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -49,10 +50,13 @@ public class ContactCreationTests extends TestBase {
 
   public void testContactCreation(ContactData contact) {
 
+    Groups groups = app.db().groups();
+
     app.goTo().backHome();
 
     Contacts before = app.db().contacts();
-    app.contact().create(contact);
+    ContactData newContact = contact.inGroup(groups.iterator().next());
+    app.contact().create(newContact);
     app.goTo().backHome();
     app.contact().timeOut(1);
     Contacts after = app.db().contacts();
