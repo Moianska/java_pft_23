@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,18 +16,18 @@ public class ContactModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         if (app.db().contacts().size() == 0) {
-            String groupName = app.group().defineGroupName();
+            Groups groups = app.db().groups();
             app.goTo().backHome();
             app.contact().create(new ContactData().withName ("Mike").withLastName("Jordan")
                     .withMobilePhone("+33111222333").withEmail("terry.p@google.com").withHomeAddress("USA, Montana")
-                    .withGroup(groupName));
+                    .inGroup(groups.iterator().next()));
         }
     }
 
     @Test
     public void testContactModification() {
 
-        String groupName = app.group().defineGroupName();
+        Groups groups = app.db().groups();
         app.goTo().backHome();
 
         Contacts before = app.db().contacts();
@@ -34,7 +35,7 @@ public class ContactModificationTests extends TestBase {
         ContactData modifiedContact = before.iterator().next();
         ContactData finalContact = new ContactData().withId(modifiedContact.getId()).withName ("LLLL").withLastName("TTTT")
                 .withMobilePhone("+33111222333").withEmail("terry.p@google.com").withHomeAddress("USA, Montana")
-                .withGroup(groupName);
+                .inGroup(groups.iterator().next());
 
         app.contact().modify(finalContact);
 
