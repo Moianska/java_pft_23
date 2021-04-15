@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +83,18 @@ public class ContactHelper extends HelperBase {
         timeOut(2);
     }
 
+    public void createWithoutPhoto(ContactData contact) {
+        initContactCreation();
+        type(By.name("firstname"), contact.getFirstName());
+        type(By.name("lastname"), contact.getLastName());
+        type(By.name("mobile"), contact.getMobilePhone());
+        type(By.name("email"), contact.getEmail());
+        type(By.name("address"), contact.getHomeAddress());
+        submitNewContactForm();
+        backToHomePage();
+        timeOut(2);
+    }
+
     public void delete(ContactData contact) {
         selectContactById(contact.getId());
         deleteSelectedContact();
@@ -100,6 +111,20 @@ public class ContactHelper extends HelperBase {
         updateEditedContact();
         backToHomePage();
         timeOut(2);
+    }
+
+
+    public void addContactToGroup(ContactData addedContact, String groupId) {
+        selectContactById(addedContact.getId());
+        selectAndAddGroup(groupId);
+    }
+
+    private void selectAndAddGroup(String groupId) {
+        wd.findElement(By.xpath("//*[@name='to_group']")).click();
+        new Select(wd.findElement(By.xpath("//*[@name='to_group']"))).selectByValue(groupId);
+        wd.findElement(By.xpath(".//input[@value='Add to']")).click();
+
+
     }
 
     private void backToHomePage() {
@@ -179,4 +204,5 @@ public class ContactHelper extends HelperBase {
                 .withEmail(email).withEmail2(email2).withEmail3(email3).withHomeAddress(homeAddress);
 
     }
+
 }

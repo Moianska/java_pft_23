@@ -58,6 +58,7 @@ public class ContactData {
             inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<GroupData> groups = new HashSet<GroupData>();
 
+
     /*@Transient
     private String group;*/
 
@@ -201,6 +202,7 @@ public class ContactData {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", groups='" + groups + '\'' +
                 '}';
     }
 
