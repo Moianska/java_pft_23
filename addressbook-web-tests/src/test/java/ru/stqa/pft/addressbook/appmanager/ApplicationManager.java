@@ -84,4 +84,9 @@ public class ApplicationManager {
         new Select(wd.findElement(By.name("group")))
                 .selectByVisibleText("[all]");
     }
+
+    public void setGroupSelector(String groupId) {
+        wd.findElement(By.xpath("//*[@name='group']")).click();
+        new Select(wd.findElement(By.xpath("//*[@name='group']"))).selectByValue(groupId);
+    }
 }

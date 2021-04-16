@@ -6,10 +6,6 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
-
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -21,7 +17,7 @@ public class ContactAddingToGroup extends TestBase{
         if (app.db().contacts().size() == 0) {
 
             app.goTo().backHome();
-            app.contact().create(new ContactData().withName ("Mike").withLastName("Jordan")
+            app.contact().createWithoutPhoto(new ContactData().withName ("Mike").withLastName("Jordan")
                     .withMobilePhone("+33111222333").withEmail("terry.p@google.com").withHomeAddress("USA, Montana"));
         }
     }
@@ -37,19 +33,28 @@ public class ContactAddingToGroup extends TestBase{
     @Test
     public void testAddingContactToGroup () {
         Groups groupsBefore = app.db().groups();
-        Contacts contactsBefore = app.db().contacts();
-        ContactData addedContact = contactsBefore.iterator().next();
+        Contacts contactsInitialSet = app.db().contacts();
+        Contacts contactsBefore = contactsInitialSet;
+        ContactData candidateAddedContact = contactsBefore.iterator().next();
+        Integer countCondition = contactsBefore.size();
 
-        while ((addedContact.getGroups().size() !=0)) {
-            contactsBefore = contactsBefore.without(addedContact);
-            if (contactsBefore.size() == 0) {
-                app.contact().createWithoutPhoto(new ContactData().withName ("Mike").withLastName("Jordan")
-                        .withMobilePhone("+33111222333").withEmail("terry.p@google.com")
-                        .withHomeAddress("USA, Montana"));
-                contactsBefore = app.db().contacts();
-                addedContact = contactsBefore.iterator().next();
+        while (countCondition !=0) {
+            if ((candidateAddedContact.getGroups().size() !=0)&&(contactsBefore.size() > 1)) {
+                contactsBefore = contactsBefore.without(candidateAddedContact);
+                candidateAddedContact = contactsBefore.iterator().next();
+                countCondition = contactsBefore.size();
             } else {
-                addedContact = contactsBefore.iterator().next();
+                if ((candidateAddedContact.getGroups().size() != 0) && (contactsBefore.size() == 1)) {
+                    app.contact().createWithoutPhoto(new ContactData().withName("Mike").withLastName("Jordan")
+                            .withMobilePhone("+33111222333").withEmail("terry.p@google.com")
+                            .withHomeAddress("USA, Montana"));
+
+                    Contacts contactsWithAddedContact = app.db().contacts();
+                    contactsWithAddedContact.removeAll(contactsInitialSet);
+                    candidateAddedContact = contactsWithAddedContact.iterator().next();
+                } else {
+                    countCondition = 0;
+                }
             }
         }
 
@@ -58,21 +63,13 @@ public class ContactAddingToGroup extends TestBase{
 
         app.goTo().backHome();
         app.resetGroupSelector();
-        app.contact().addContactToGroup(addedContact, groupId);
+        app.contact().addContactToGroup(candidateAddedContact, groupId);
         app.goTo().backHome();
 
-        ContactData finalContact = app.db().singleContactByID(addedContact.getId());
+        ContactData finalContact = app.db().singleContactByID(candidateAddedContact.getId());
         Groups groupsFromFinalContact = finalContact.getGroups();
-        Groups groupsToCompare = addedContact.getGroups().withAdded(chosenGroup);
+        Groups groupsToCompare = candidateAddedContact.getGroups().withAdded(chosenGroup);
 
         assertThat(groupsFromFinalContact, equalTo(groupsToCompare));
-
-
-
-
-        /*ContactData addedContactWithGroup = addedContact.withGroups(chosenGroup);*/
-
-
-
     }
 }

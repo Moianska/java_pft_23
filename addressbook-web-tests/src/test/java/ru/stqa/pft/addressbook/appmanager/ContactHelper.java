@@ -119,6 +119,15 @@ public class ContactHelper extends HelperBase {
         selectAndAddGroup(groupId);
     }
 
+    private void submitContactDeletionFromGroup() {
+        wd.findElement(By.xpath("//*[@name='remove']")).click();
+    }
+
+    public void deleteContactFromTheGroup(ContactData candidateDeletedContact) {
+        selectContactById(candidateDeletedContact.getId());
+        submitContactDeletionFromGroup();
+    }
+
     private void selectAndAddGroup(String groupId) {
         wd.findElement(By.xpath("//*[@name='to_group']")).click();
         new Select(wd.findElement(By.xpath("//*[@name='to_group']"))).selectByValue(groupId);
