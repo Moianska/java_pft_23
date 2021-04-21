@@ -49,13 +49,11 @@ public class ApplicationManager {
         wd.quit();
     }
 
-    public void resetGroupSelector() {
-        new Select(wd.findElement(By.name("group")))
-                .selectByVisibleText("[all]");
+    public HttpSession newSession() {
+        return new HttpSession(this);
     }
 
-    public void setGroupSelector(String groupId) {
-        wd.findElement(By.xpath("//*[@name='group']")).click();
-        new Select(wd.findElement(By.xpath("//*[@name='group']"))).selectByValue(groupId);
+    public String getProperty(String key) {
+        return properties.getProperty(key);
     }
 }
