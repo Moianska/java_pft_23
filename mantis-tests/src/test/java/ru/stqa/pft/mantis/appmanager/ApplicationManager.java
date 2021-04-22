@@ -94,4 +94,13 @@ public class ApplicationManager {
         }
         return jamesHelper;
     }
+
+    public void openManageTab() {
+        click(By.cssSelector(String.format("a[href='/mantisbt-2.25.0/manage_overview_page.php']")));
+        click(By.cssSelector(String.format("a[href='/mantisbt-2.25.0/manage_user_page.php']")));
+    }
+
+    private void click(By locator) {
+        wd.findElement(locator).click();
+    }
 }
