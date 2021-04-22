@@ -19,6 +19,7 @@ public class ApplicationManager {
     private WebDriver wd;
     private FtpHelper ftp;
     private MailHelper mailHelper;
+    private JamesHelper jamesHelper;
 
     private String browser;
     private RegistrationHelper registrationHelper;
@@ -85,5 +86,12 @@ public class ApplicationManager {
             wd.get(properties.getProperty("web.baseUrl"));
         }
         return wd;
+    }
+
+    public JamesHelper james() {
+        if (jamesHelper == null) {
+            jamesHelper = new JamesHelper(this);
+        }
+        return jamesHelper;
     }
 }
