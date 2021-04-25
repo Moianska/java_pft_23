@@ -20,9 +20,12 @@ public class ApplicationManager {
     private FtpHelper ftp;
     private MailHelper mailHelper;
     private JamesHelper jamesHelper;
+    private DbHelper dbHelper;
+    private SessionHelper sessionHelper;
 
     private String browser;
     private RegistrationHelper registrationHelper;
+    private UserHelper userHelper;
 
     public ApplicationManager(String browser) throws IOException {
 
@@ -54,6 +57,19 @@ public class ApplicationManager {
         if (registrationHelper == null) {
         registrationHelper = new RegistrationHelper(this);}
         return registrationHelper;
+    }
+
+    public UserHelper userHelper() {
+        if (userHelper == null) {
+            userHelper = new UserHelper(this);}
+        return userHelper;
+    }
+
+    public SessionHelper sessionHelper() {
+        if (sessionHelper == null) {
+            sessionHelper = new SessionHelper(this);
+        }
+        return sessionHelper;
     }
 
     public FtpHelper ftp() {
@@ -93,6 +109,10 @@ public class ApplicationManager {
             jamesHelper = new JamesHelper(this);
         }
         return jamesHelper;
+    }
+
+    public DbHelper db() {
+         return dbHelper;
     }
 
     public void openManageTab() {

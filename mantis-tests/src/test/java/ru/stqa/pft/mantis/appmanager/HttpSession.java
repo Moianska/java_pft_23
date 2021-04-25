@@ -10,6 +10,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.openqa.selenium.By;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,4 +55,5 @@ public class HttpSession {
         String body = geTextFrom(response);
         return body.contains(String.format("<span class=\"user-info\">%s</span>", username));
     }
+
 }
