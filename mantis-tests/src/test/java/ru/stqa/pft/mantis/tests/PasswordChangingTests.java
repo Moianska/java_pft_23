@@ -23,6 +23,9 @@ public class PasswordChangingTests extends TestBase{
 
     @Test
     public void passwordChanging () throws IOException, MessagingException {
+        app.sessionHelper().login("administrator", "root");
+        app.openManageTab();
+
         Users before = app.db().users();
         before.removeIf(user -> user.getUsername().equals("administrator"));
         UserData candidateToChangePass = before.iterator().next();
@@ -31,8 +34,8 @@ public class PasswordChangingTests extends TestBase{
         String user = candidateToChangePass.getUsername();
         String password = "Password";
 
-        app.sessionHelper().login("administrator", "root");
-        app.openManageTab();
+       /* app.sessionHelper().login("administrator", "root");
+        app.openManageTab();*/
         app.userHelper().selectUserById(candidateToChangePass.getId());
         app.userHelper().resetPassword();
         app.sessionHelper().logout();
