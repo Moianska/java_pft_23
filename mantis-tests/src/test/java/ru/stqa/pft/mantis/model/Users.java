@@ -20,8 +20,8 @@ public class Users extends ForwardingSet<UserData> {
         this.delegate = new HashSet<>();
     }
 
-    public Users(Collection<UserData> groups) {
-        this.delegate = new HashSet<UserData>(groups);
+    public Users(Collection<UserData> users) {
+        this.delegate = new HashSet<UserData>(users);
     }
 
     @Override
