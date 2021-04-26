@@ -16,7 +16,7 @@ import static org.testng.Assert.assertTrue;
 
 public class PasswordChangingTests extends TestBase{
 
-    //@BeforeMethod
+    @BeforeMethod
     public void startMailServer() {
         app.mail().start();
     }
@@ -40,13 +40,13 @@ public class PasswordChangingTests extends TestBase{
         app.userHelper().resetPassword();
         app.sessionHelper().logout();
 
+
+
         long now = System.currentTimeMillis();
-        /*List<MailMessage> mailMessages = app.mail().waitForMail(1, 60000);*/
-        List<MailMessage> mailMessages = app.james().waitForMail(user, password, 200000);
+        List<MailMessage> mailMessages = app.mail().waitForMail(1, 60000);
         String confirmationLink = findConfirmationLink(mailMessages, email);
         app.registration().finish(confirmationLink, password);
         assertTrue(app.newSession().login(user, password));
-        assertTrue(app.newSession().isLoggedInAs(user));
 
     }
 
@@ -57,7 +57,7 @@ public class PasswordChangingTests extends TestBase{
         return regex.getText(mailMessage.text);
     }
 
-    //@AfterMethod(alwaysRun = true)
+   @AfterMethod(alwaysRun = true)
     public void stopMailServer() {
         app.mail().stop();
     }

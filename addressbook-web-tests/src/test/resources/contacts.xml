@@ -1,0 +1,32 @@
+<list>
+  <contact>
+    <firstName>first name 0</firstName>
+    <lastName>last name 0</lastName>
+    <mobilePhone>0442955110</mobilePhone>
+    <homePhone>USA, Street 0</homePhone>
+    <workPhone>0442955110</workPhone>
+    <email>test@test0.com</email>
+    <groups>[none]</groups>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+  <contact>
+    <firstName>first name 1</firstName>
+    <lastName>last name 1</lastName>
+    <mobilePhone>0442955111</mobilePhone>
+    <homePhone>USA, Street 1</homePhone>
+    <workPhone>0442955111</workPhone>
+    <email>test@test1.com</email>
+    <groups>[none]</groups>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+  <contact>
+    <firstName>first name 2</firstName>
+    <lastName>last name 2</lastName>
+    <mobilePhone>0442955112</mobilePhone>
+    <homePhone>USA, Street 2</homePhone>
+    <workPhone>0442955112</workPhone>
+    <email>test@test2.com</email>
+    <groups>[none]</groups>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+</list>
