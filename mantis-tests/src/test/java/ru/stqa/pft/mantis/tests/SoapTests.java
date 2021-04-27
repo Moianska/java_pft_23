@@ -1,5 +1,7 @@
 package ru.stqa.pft.mantis.tests;
 
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ru.stqa.pft.mantis.model.Issue;
 import ru.stqa.pft.mantis.model.Project;
@@ -12,13 +14,18 @@ import java.util.Set;
 import static org.testng.AssertJUnit.assertEquals;
 
 public class SoapTests extends TestBase {
-    @Test
+    /*@Test
     public void testGetProjects() throws MalformedURLException, ServiceException, RemoteException {
         Set<Project> projects = app.soap().getProjects();
         System.out.println(projects.size());
         for (Project project : projects) {
             System.out.println(project.getName());
         }
+    }*/
+
+    @BeforeMethod
+    public void ifIssueOpen() throws RemoteException, MalformedURLException, com.google.protobuf.ServiceException, ServiceException {
+        skipIfNotFixed(0000002);
     }
 
 
