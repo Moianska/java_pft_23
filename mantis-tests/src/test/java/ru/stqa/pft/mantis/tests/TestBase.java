@@ -7,9 +7,6 @@ import ru.stqa.pft.mantis.appmanager.ApplicationManager;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.stream.Collectors;
-
-import static org.hamcrest.CoreMatchers.equalTo;
 
 public class TestBase {
 
