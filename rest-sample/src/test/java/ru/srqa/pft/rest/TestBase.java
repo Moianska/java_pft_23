@@ -1,15 +1,12 @@
 package ru.srqa.pft.rest;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
 import org.testng.SkipException;
 
 import java.io.IOException;
-import java.util.Set;
 
 public class TestBase {
 
@@ -18,7 +15,7 @@ public class TestBase {
     }
 
     public void skipIfNotFixed(int issueId) throws IOException {
-        if (isIssueOpen(issueId) == true) {
+        if (isIssueOpen(issueId)) {
             throw new SkipException("Ignored because of issue " + issueId);
         }
     }
